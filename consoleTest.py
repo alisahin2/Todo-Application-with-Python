@@ -42,11 +42,11 @@ while(entry != 0):
         print("-----------------------")
 
     elif(yourChoose == 2):
-        # son todonun id sini alma
+        # get last user id
         mycursor.execute("SELECT id FROM users ORDER BY id DESC LIMIT 1")
         lastUserId = mycursor.fetchone()
         print(int(lastUserId[0]), " last user id")
-        # yeni eleman ekleme kismi
+
         print("New User is creating")
 
         lastID = lastUserId[0]
@@ -73,4 +73,16 @@ while(entry != 0):
         else:
             print("Error")
 
+        print("-----------------------")
+
+    elif (yourChoose == 3):
+        # user update
+        mycursor = mydb.cursor()
+        id = int(input("which do you update of the user id: "))
+
+        password = str(input("password: "))
+        updateUserQuery = "UPDATE users SET password = {} WHERE id = {} ".format(password, id)
+        values = (password)
+        mycursor.execute(updateUserQuery, values)
+        mydb.commit()
         print("-----------------------")
