@@ -76,7 +76,7 @@ while(entry != 0):
         print("-----------------------")
 
     elif (yourChoose == 3):
-        # user update
+        # user password update
         mycursor = mydb.cursor()
         id = int(input("which do you update of the user id: "))
 
@@ -85,4 +85,16 @@ while(entry != 0):
         values = (password)
         mycursor.execute(updateUserQuery, values)
         mydb.commit()
+        print("-----------------------")
+
+    elif(yourChoose == 4 ):
+        # user delete
+        mycursor = mydb.cursor()
+        id = int(input("which do you delete of the user(please entry user id): "))
+        #values = (id)
+
+        changeVisibilityQuery = "UPDATE users SET visibility=0 WHERE id = '%s' " %id
+        mycursor.execute(changeVisibilityQuery, id)
+        mydb.commit()
+
         print("-----------------------")
