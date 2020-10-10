@@ -40,3 +40,37 @@ while(entry != 0):
         for row in todos:
             print(row)
         print("-----------------------")
+
+    elif(yourChoose == 2):
+        # son todonun id sini alma
+        mycursor.execute("SELECT id FROM users ORDER BY id DESC LIMIT 1")
+        lastUserId = mycursor.fetchone()
+        print(int(lastUserId[0]), " last user id")
+        # yeni eleman ekleme kismi
+        print("New User is creating")
+
+        lastID = lastUserId[0]
+        print("new user id: ", lastID + 1)
+
+        id = lastID + 1
+        name = str(input("name: "))
+        surname = str(input("surname: "))
+        email = str(input("email: "))
+        city = str(input("city: "))
+        birthday = time.strftime(input("birthday: "))
+        password = str(input("password: "))
+        visibility = 1
+
+        values = (id, name, surname, email, city, birthday, password, visibility )
+        addUserQuery = "Insert into users values(%s, %s, %s, %s, %s, %s, %s, %s)"
+
+        x = mydb.cursor()
+        a = x.execute(addUserQuery, values)
+        mydb.commit()
+
+        if a != enumerate:
+            print("User is added successfully")
+        else:
+            print("Error")
+
+        print("-----------------------")
