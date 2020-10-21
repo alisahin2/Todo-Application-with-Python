@@ -33,11 +33,11 @@ while(entry != 0):
 
         # mevcut tablonun cekilmesi
         mycursor.execute("SELECT  * FROM users")
-        todos = mycursor.fetchall()
+        users = mycursor.fetchall()
 
         # mevcut tablonun gosterilmesi
         print("Users Table: id, name, surname, email, city, birthday, password, visibility ")
-        for row in todos:
+        for row in users:
             print(row)
         print("-----------------------")
 
@@ -84,7 +84,7 @@ while(entry != 0):
         id = int(input("which do you delete of the user(please entry user id): "))
         #values = (id)
 
-        changeVisibilityQuery = "UPDATE users SET visibility=0 WHERE id = '%s' " %id
+        changeVisibilityQuery = "UPDATE users SET visibility=0 WHERE id = {} ".format(id)
         mycursor.execute(changeVisibilityQuery, id)
         mydb.commit()
 
@@ -92,13 +92,11 @@ while(entry != 0):
 
     elif (yourChoose == 5):
         id = int(input("Select user id: "))
-
         selectUserQuery = "SELECT * FROM users WHERE id = {} ".format(id)
         values = (id)
         mycursor.execute(selectUserQuery, id)
-        mydb.commit()
 
         myresult = mycursor.fetchall()
+        for getUser in myresult:
+            print("Selected User values: ", getUser)
 
-        for row in myresult:
-            print(row)
