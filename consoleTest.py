@@ -2,7 +2,6 @@ import sys
 import mysql.connector
 import time
 
-#baglanti
 mydb = mysql.connector.connect(
     host='127.0.0.1',
     user="root",
@@ -24,18 +23,16 @@ while(entry != 0):
           "\n 7=add todo "
           "\n 8=update todo description "
           "\n 9=delete todo "
-          "\n 10=get todo by id,"
-          " \n 0=cikis" )
+          "\n 10=get todo by id"
+          "\n 10=show the todo list"
+          " \n 0=close" )
     yourChoose = int(input("Please choose process: "))
 
     mycursor = mydb.cursor()
     if (yourChoose == 1):
-
-        # mevcut tablonun cekilmesi
         mycursor.execute("SELECT  * FROM users")
         users = mycursor.fetchall()
 
-        # mevcut tablonun gosterilmesi
         print("Users Table: id, name, surname, email, city, birthday, password, visibility ")
         for row in users:
             print(row)
@@ -65,7 +62,6 @@ while(entry != 0):
         print("-----------------------")
 
     elif (yourChoose == 3):
-        # user password update
         mycursor = mydb.cursor()
         id = int(input("which do you update of the user id: "))
 
@@ -77,15 +73,12 @@ while(entry != 0):
         print("-----------------------")
 
     elif(yourChoose == 4 ):
-        # user delete
         mycursor = mydb.cursor()
         id = int(input("which do you delete of the user(please entry user id): "))
-        #values = (id)
 
         changeVisibilityQuery = "UPDATE users SET visibility=0 WHERE id = {} ".format(id)
         mycursor.execute(changeVisibilityQuery, id)
         mydb.commit()
-
         print("-----------------------")
 
     elif (yourChoose == 5):
@@ -161,7 +154,16 @@ while(entry != 0):
             print("Selected Todo VALUES: ", getTodo)
         print("-----------------------")
 
+    elif(yourChoose == 11):
+        mycursor = mydb.cursor()
 
+        mycursor.execute(
+            "SELECT users.id AS 'user id', users.name, users.surname, users.visibility, todos.name AS 'todo name', todos.description, todos.time  FROM users INNER JOIN todos ON users.id = todos.userID")
+        todos = mycursor.fetchall()
+
+        for row in todos:
+            print(row)
+        print(" Total todo count is:  " , mycursor.rowcount)
 
 
     elif(yourChoose == 0):
