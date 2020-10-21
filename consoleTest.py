@@ -100,3 +100,14 @@ while(entry != 0):
         for getUser in myresult:
             print("Selected User values: ", getUser)
 
+
+    elif(yourChoose == 6):
+        mycursor.execute("SELECT  * FROM todos")
+        todos = mycursor.fetchall()
+
+        print("Todos table: ")
+        for row in  todos:
+            print(row)
+        print("Total Todo Count: ", mycursor.rowcount)
+        print("-----------------------")
+
