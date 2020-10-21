@@ -50,7 +50,6 @@ while(entry != 0):
         password = str(input("password: "))
 
         values = (name, surname, email, city, birthday, password)
-
         addUserQuery = "INSERT INTO users (name, surname, email, city, birthday, password) VALUES(%s, %s, %s, %s, %s, %s)"
 
         a = mydb.cursor().execute(addUserQuery, values)
@@ -63,7 +62,6 @@ while(entry != 0):
             print(int(lastUserId[0]), " last user id")
         else:
             print("Error")
-
         print("-----------------------")
 
     elif (yourChoose == 3):
@@ -98,7 +96,8 @@ while(entry != 0):
 
         myresult = mycursor.fetchall()
         for getUser in myresult:
-            print("Selected User values: ", getUser)
+            print("Selected User VALUES: ", getUser)
+        print("-----------------------")
 
 
     elif(yourChoose == 6):
@@ -111,3 +110,21 @@ while(entry != 0):
         print("Total Todo Count: ", mycursor.rowcount)
         print("-----------------------")
 
+    elif (yourChoose == 7):
+        userId = int(input("user id: "))
+        name = str(input("todo name: "))
+        description = str(input("todo description: "))
+        time = time.strftime(input("todo time: "))
+
+        newTodoValues = (userId, name, description, time)
+        addTodoQuery = "INSERT INTO todos (userId, name, description, time) VALUES(%s, %s, %s, %s)"
+
+        a = mydb.cursor().execute(addTodoQuery, newTodoValues)
+        mydb.commit()
+
+        if a != enumerate:
+            print("Success")
+        else:
+            print("Error")
+
+        print("-----------------------")
