@@ -139,3 +139,13 @@ while(entry != 0):
         mydb.commit()
 
         print("-----------------------")
+
+    elif(yourChoose == 9 ):
+        mycursor = mydb.cursor()
+        id = int(input("which do you delete of the todo(please entry todo id): "))
+
+        deleteTodoQuery = "UPDATE todos SET visibility=0 WHERE id = {} ".format(id)
+        mycursor.execute(deleteTodoQuery, id)
+        mydb.commit()
+
+        print("-----------------------")
