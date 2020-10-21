@@ -42,34 +42,25 @@ while(entry != 0):
         print("-----------------------")
 
     elif(yourChoose == 2):
-        # get last user id
-        mycursor.execute("SELECT id FROM users ORDER BY id DESC LIMIT 1")
-        lastUserId = mycursor.fetchone()
-        print(int(lastUserId[0]), " last user id")
-
-        print("New User is creating")
-
-        lastID = lastUserId[0]
-        print("new user id: ", lastID + 1)
-
-        id = lastID + 1
         name = str(input("name: "))
         surname = str(input("surname: "))
         email = str(input("email: "))
         city = str(input("city: "))
         birthday = time.strftime(input("birthday: "))
         password = str(input("password: "))
-        visibility = 1
 
-        values = (id, name, surname, email, city, birthday, password, visibility )
-        addUserQuery = "Insert into users values(%s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (name, surname, email, city, birthday, password)
 
-        x = mydb.cursor()
-        a = x.execute(addUserQuery, values)
+        addUserQuery = "INSERT INTO users (name, surname, email, city, birthday, password) VALUES(%s, %s, %s, %s, %s, %s)"
+
+        a = mydb.cursor().execute(addUserQuery, values)
         mydb.commit()
 
         if a != enumerate:
             print("User is added successfully")
+            mycursor.execute("SELECT * FROM users ORDER BY id DESC LIMIT 1")
+            lastUserId = mycursor.fetchone()
+            print(int(lastUserId[0]), " last user id")
         else:
             print("Error")
 
