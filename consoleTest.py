@@ -126,5 +126,16 @@ while(entry != 0):
             print("Success")
         else:
             print("Error")
+        print("-----------------------")
+
+    elif(yourChoose == 8):
+        mycursor = mydb.cursor()
+        id = int(input("which do you update of the todo id: "))
+
+        description = str(input("description: "))
+        updateTodoDescriptionQuery = "UPDATE todos SET description = {} WHERE id = {} ".format(description, id)
+        values = (description)
+        mycursor.execute(updateTodoDescriptionQuery, values)
+        mydb.commit()
 
         print("-----------------------")
