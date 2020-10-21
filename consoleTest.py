@@ -149,3 +149,20 @@ while(entry != 0):
         mydb.commit()
 
         print("-----------------------")
+
+    elif(yourChoose == 10):
+        id = int(input("Select todo id: "))
+        selectUserQuery = "SELECT * FROM todos WHERE id = {} ".format(id)
+        values = (id)
+        mycursor.execute(selectUserQuery, id)
+
+        myresult = mycursor.fetchall()
+        for getTodo in myresult:
+            print("Selected Todo VALUES: ", getTodo)
+        print("-----------------------")
+
+
+
+
+    elif(yourChoose == 0):
+        sys.exit()
