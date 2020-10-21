@@ -89,3 +89,16 @@ while(entry != 0):
         mydb.commit()
 
         print("-----------------------")
+
+    elif (yourChoose == 5):
+        id = int(input("Select user id: "))
+
+        selectUserQuery = "SELECT * FROM users WHERE id = {} ".format(id)
+        values = (id)
+        mycursor.execute(selectUserQuery, id)
+        mydb.commit()
+
+        myresult = mycursor.fetchall()
+
+        for row in myresult:
+            print(row)
